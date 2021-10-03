@@ -1,14 +1,15 @@
 import "./App.css";
-
-import Body from "./Body";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/Header";
+import Body from "./Body";
 
 function App() {
   return (
     <>
-      <Header />
-      <Body />
+      <Router>
+        <Header />
+        <Body />
+      </Router>
     </>
   );
 }
