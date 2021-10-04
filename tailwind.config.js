@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "featured-hero": "url('/src/images/demon-slayer.png')",
+        "featured-anime": "url('/src/images/squad.jpg')",
       },
     },
   },
