@@ -6,23 +6,24 @@ const AllAnime = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getAllAnime = async () => {
-    try {
-      const res = await fetch(
-        ` https://api.jikan.moe/v4/anime/
-          `
-      );
-      const result = await res.json();
-      // setAnimeList(result.data.documents);
-      setAnimeList(result.data);
-      setLoading(false);
-      // console.log(result);
-    } catch (error) {
-      setError(error);
-      console.error("Error:", error);
-    }
-  };
   useEffect(() => {
+    const getAllAnime = async () => {
+      try {
+        const res = await fetch(
+          ` https://api.jikan.moe/v4/anime/
+          `
+        );
+        const result = await res.json();
+        // setAnimeList(result.data.documents);
+        setAnimeList(result.data);
+        setLoading(false);
+        // console.log(result);
+      } catch (error) {
+        setError(error);
+        console.error("Error:", error);
+      }
+    };
+
     getAllAnime();
     console.log(animeList);
     setLoading(true);
@@ -38,8 +39,8 @@ const AllAnime = () => {
 
   return (
     <>
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 md:grid-cols-3 md:gap-5 p-5">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 md:grid-cols-3 md:gap-5 p-5">
           {animeList
             .filter((data) => data.type === "TV")
             .sort((data) => data.popularity)

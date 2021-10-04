@@ -4,36 +4,37 @@ const FeaturedAnime = () => {
   const [getFeatured, setFeatured] = useState([]);
   const [getCharacters, setCharacters] = useState([]);
 
-  const getFeaturedAnime = async () => {
-    try {
-      const res = await fetch("https://api.jikan.moe/v4/anime/38000");
-      const result = await res.json();
-
-      setFeatured(result.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
   useEffect(() => {
+    const getFeaturedAnime = async () => {
+      try {
+        const res = await fetch("https://api.jikan.moe/v4/anime/38000");
+        const result = await res.json();
+
+        setFeatured(result.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
     getFeaturedAnime();
-    console.log(getFeatured);
-  }, []);
+  });
 
-  const getCharactersList = async () => {
-    try {
-      const res = await fetch(
-        "https://api.jikan.moe/v4/anime/38000/characters"
-      );
-      const result = await res.json();
-
-      setCharacters(result.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
   useEffect(() => {
+    const getCharactersList = async () => {
+      try {
+        const res = await fetch(
+          "https://api.jikan.moe/v4/anime/38000/characters"
+        );
+        const result = await res.json();
+
+        setCharacters(result.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
     getCharactersList();
-  }, []);
+  });
 
   return (
     <>
@@ -49,18 +50,16 @@ const FeaturedAnime = () => {
           <h2 className="mb-2 font-bold text:xl md:text-2xl text-orange-700">
             {getFeatured.title}
           </h2>
-          {/* <p className="py-1">
-            {getFeatured.genres.map((genre, i) => (
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500" key={i}>
-                {genre.name}
-              </span>
-            ))}
-          </p> */}
+          {/* {getFeatured.data.map((genre, i) => (
+            <span className="m-1 px-2 py-1 rounded bg-indigo-500" key={i}>
+              {genre.name}
+            </span>
+          ))} */}
           <p>Status: {getFeatured.status}</p>
           <p>Episodes: {getFeatured.episodes}</p>
           <p>Year: {getFeatured.year}</p>
-          <p className="mb-5">Synopsis: {getFeatured.synopsis}</p>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <p className="mb-2">Synopsis: {getFeatured.synopsis}</p>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             More Details
           </button>
           <div className="space-x-4">
@@ -72,12 +71,15 @@ const FeaturedAnime = () => {
               .sort((data) => data.name)
               .reverse()
               .map((data, i) => (
-                <div className="inline-block my-5">
-                  <div class="has-tooltip">
+                <div className="inline-block my-5" key={i}>
+                  <div className="has-tooltip">
                     {data.voice_actors
                       .filter((data) => data.language === "Japanese")
                       .map((data, i) => (
-                        <span class="tooltip rounded shadow-lg p-1 bg-gray-100  -mt-8">
+                        <span
+                          className="tooltip rounded shadow-lg p-1 bg-gray-100  -mt-8"
+                          key={i}
+                        >
                           <img
                             src={data.person.images.jpg.image_url}
                             alt={data.person.name}
@@ -86,7 +88,7 @@ const FeaturedAnime = () => {
                           />
                         </span>
                       ))}
-                    <div key={i}>
+                    <div>
                       <img
                         src={data.character.images.jpg.image_url}
                         alt={data.character.name}
